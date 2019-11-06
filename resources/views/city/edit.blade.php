@@ -1,7 +1,7 @@
 @extends('home')
 @section('title','add city')
 @section('content')
-    <form method="post" action="{{route('cities.store')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('cities.update',$city->id)}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label>City Name</label>
