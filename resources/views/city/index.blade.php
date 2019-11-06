@@ -1,10 +1,10 @@
 @extends('home')
-@section('title','country list')
+@section('title','city list')
 @section('content')
-    <a href="{{route('countries.create')}}" class="btn btn-danger">Add new country</a>
-    <form action="{{route('countries.search')}}" method="get">
+    <a href="{{route('cities.create')}}" class="btn btn-danger">Add new city</a>
+    <form action="{{route('cities.search')}}" method="get">
         <label>
-            <input type="text" name="search" placeholder="Which Country ???">
+            <input type="text" name="search" placeholder="Which City ???">
         </label>
         <input type="submit" value="Search">
     </form>
@@ -12,26 +12,27 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Country Name</th>
-            <th scope="col">Country Code</th>
-            <th scope="col">Country Area(Km2)</th>
-            <th scope="col">Country Map</th>
+            <th scope="col">City Name</th>
+            <th scope="col">City Description</th>
+            <th scope="col">City image</th>
+            <th scope="col">Country</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
-        @foreach($countries as $key =>$country)
+        @foreach($cities as $key =>$city)
             <tbody>
             <tr>
                 <th scope="row">{{++$key}}</th>
-                <td>{{$country->country_name}}</td>
-                <td>{{$country->country_code}}</td>
-                <td>{{$country->country_area}}</td>
+                <td>{{$city->city_name}}</td>
+                <td>{{$city->city_desc}}</td>
                 <td>
-                    <img src="{{asset('storage/'.$country->country_map)}}" alt="map of {{$country->country_name}}">
+                    <img src="{{asset('storage/'.$city->city_image)}}" alt="map of {{$city->city_name}}">
                 </td>
+                <td>{{$city->country->country_name}}</td>
+
                 <td>
-                    <a href="{{route('countries.destroy',$country->id)}}" class="btn btn-outline-primary">Delete</a>
-                    <a href="{{route('countries.edit',$country->id)}}" class="btn btn-outline-primary">Edit</a>
+                    <a href="{{route('cities.destroy',$city->id)}}" class="btn btn-outline-primary">Delete</a>
+                    <a href="{{route('cities.edit',$city->id)}}" class="btn btn-outline-primary">Edit</a>
                 </td>
             </tr>
             </tbody>

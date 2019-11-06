@@ -31,3 +31,12 @@ Route::prefix('countries')->group(function (){
     Route::get('{id}/destroy', 'CountryController@destroy')->name('countries.destroy');
     Route::get('search', 'CountryController@search')->name('countries.search');
 });
+Route::prefix('cities')->group(function (){
+    Route::get('/', 'CityController@index')->name('cities.index');
+    Route::get('create', 'CityController@create')->name('cities.create');
+    Route::post('store', 'CityController@store')->name('cities.store');
+    Route::get('{id}/edit', 'CityController@edit')->name('cities.edit');
+    Route::post('{id}/update', 'CityController@update')->name('cities.update');
+    Route::get('{id}/destroy', 'CityController@destroy')->name('cities.destroy');
+    Route::get('search', 'CityController@search')->name('cities.search');
+});
