@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +21,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('countries')->group(function (){
+    Route::get('/', 'CountryController@index')->name('countries.index');
+    Route::get('create', 'CountryController@create')->name('countries.create');
+    Route::post('store', 'CountryController@store')->name('countries.store');
+    Route::get('{id}/edit', 'CountryController@edit')->name('countries.edit');
+    Route::post('{id}/update', 'CountryController@update')->name('countries.update');
+    Route::get('{id}/destroy', 'CountryController@destroy')->name('countries.destroy');
+    Route::get('search', 'CountryController@search')->name('countries.search');
+});
