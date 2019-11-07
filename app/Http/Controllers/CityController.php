@@ -4,39 +4,41 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Country;
+use App\Http\Services\CityServiceInterface;
+use App\Http\Services\CountryServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use SebastianBergmann\CodeCoverage\TestFixture\C;
 
 class CityController extends Controller
 {
+    protected $cityService;
+    protected $countryService;
+
+    public function __construct(CityServiceInterface $cityService,
+                                CountryServiceInterface $countryService)
+    {
+        $this->cityService = $cityService;
+        $this->countryService = $countryService;
+    }
+
     public function index()
     {
-        $cities = City::all();
+        $cities = $this->cityService->getAll();
         return view('city.index', compact('cities'));
 
     }
 
     public function create()
     {
-        $countries = Country::all();
+        $countries = $this->countryService->getAll();
         return view('city.create', compact('countries'));
     }
 
     public function store(Request $request)
     {
-        $city = new City();
-        $city->city_name = $request->city_name;
-        $city->city_desc = $request->city_desc;
-        if (!$request->hasFile('city_image')) {
-            $city->city_image = $request->city_image;
-        } else {
-            $map = $request->file('city_image');
-            $path = $map->store('image', 'public');
-            $city->city_image = $path;
-        }
-        $city->country_id = $request->country_id;
-        $city->save();
+
+        $this->cityService->add($request);
         return redirect()->route('cities.index');
     }
 
@@ -47,39 +49,26 @@ class CityController extends Controller
 
     public function edit($id)
     {
-        $city = City::findOrFail($id);
-        $countries = Country::all();
+        $city = $this->cityService->findCityById($id);
+        $countries = $this->countryService->getAll();
         return view('city.edit', compact('city', 'countries'));
     }
 
     public function update(Request $request, $id)
     {
-        $city = City::findOrFail($id);
-        $city->city_name = $request->city_name;
-        $city->city_desc = $request->city_desc;
-        if ($request->city_image) {
-            File::delete(storage_path("app/public/$city->city_image"));
-            $map = $request->file('city_image');
-            $path = $map->store('image', 'public');
-            $city->city_image = $path;
-        }
-        $city->country_id = $request->country_id;
-        $city->save();
+        $this->cityService->edit($request,$id);
         return redirect()->route('cities.index');
     }
 
     public function destroy($id)
     {
-        $city = City::findOrFail($id);
-        File::delete(storage_path("app/public/$city->city_image"));
-        $city->delete();
+        $this->cityService->delete($id);
         return redirect()->route('cities.index');
     }
 
     public function search(Request $request)
     {
-        $search = $request->get('search');
-        $cities = City::where('city_name', "LIKE", "%$search%")->get();
+        $cities = $this->cityService->search($request);
         return view('city.index', compact('cities'));
     }
 }

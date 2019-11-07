@@ -38,4 +38,5 @@
             </tbody>
         @endforeach
     </table>
+    {{$cities->links()}}
 @endsection
