@@ -37,4 +37,5 @@
             </tbody>
         @endforeach
     </table>
+    {{$countries->links()}}
 @endsection
