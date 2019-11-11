@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\RoleInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,7 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        Gate::define('crud', function ($user) {
+            if ($user->role == RoleInterface::ADMIN) {
+                return true;
+            }
+            return false;
+        });
 
-        //
+
     }
 }

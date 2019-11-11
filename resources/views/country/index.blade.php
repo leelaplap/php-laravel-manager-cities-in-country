@@ -30,8 +30,10 @@
                     <img src="{{asset('storage/'.$country->country_map)}}" alt="map of {{$country->country_name}}">
                 </td>
                 <td>
+                    @can('crud')
                     <a href="{{route('countries.destroy',$country->id)}}" class="btn btn-outline-primary">Delete</a>
                     <a href="{{route('countries.edit',$country->id)}}" class="btn btn-outline-primary">Edit</a>
+                        @endcan
                 </td>
             </tr>
             </tbody>
