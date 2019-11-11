@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\Http\Requests\ValidationRequest;
 use App\Http\Services\CountryServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -27,7 +28,7 @@ class CountryController extends Controller
         return view('country.create');
     }
 
-    public function store(Request $request)
+    public function store(ValidationRequest $request)
     {
         $this->countryService->add($request);
         return redirect()->route('countries.index');
@@ -44,7 +45,7 @@ class CountryController extends Controller
         return view('country.edit', compact('country'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ValidationRequest $request, $id)
     {
         $this->countryService->edit($request, $id);
         return redirect()->route('countries.index');

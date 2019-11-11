@@ -24,12 +24,11 @@
             <tr>
                 <th scope="row">{{++$key}}</th>
                 <td>{{$city->city_name}}</td>
-                <td>{{$city->city_desc}}</td>
+                <td>{{Str::words($city->city_desc,10)}}</td>
                 <td>
                     <img src="{{asset('storage/'.$city->city_image)}}" alt="map of {{$city->city_name}}">
                 </td>
                 <td>{{$city->country->country_name}}</td>
-
                 <td>
                     <a href="{{route('cities.destroy',$city->id)}}" class="btn btn-outline-primary">Delete</a>
                     <a href="{{route('cities.edit',$city->id)}}" class="btn btn-outline-primary">Edit</a>

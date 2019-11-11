@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Country;
+use App\Http\Requests\ValidationRequest;
 use App\Http\Services\CityServiceInterface;
 use App\Http\Services\CountryServiceInterface;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class CityController extends Controller
         return view('city.create', compact('countries'));
     }
 
-    public function store(Request $request)
+    public function store(ValidationRequest $request)
     {
 
         $this->cityService->add($request);
