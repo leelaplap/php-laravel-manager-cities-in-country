@@ -12,7 +12,7 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Country Name</th>
+            <th scope="col">@lang('message.Country Name')</th>
             <th scope="col">Country Code</th>
             <th scope="col">Country Area(Km2)</th>
             <th scope="col">Country Map</th>

@@ -13,7 +13,7 @@
         <div class="form-group">
             <label>City Description</label>
             <label>
-                <textarea type="text" class="form-control" placeholder="Enter City Description" name="city_desc" style="width: 400px">{{$city->city_desc}}</textarea>
+                <textarea type="text" class="form-control"  placeholder="Enter City Description" name="city_desc" style="width: 400px;height: 200px">{{$city->city_desc}}</textarea>
             </label>
         </div>
         <div>
